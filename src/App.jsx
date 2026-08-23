@@ -1,40 +1,23 @@
-import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import pizzas from "./data/pizzas";
 import Navbar from "./components/navbar";
-import Hero from "./components/hero";
-import PizzaList from "./components/pizzalist";
-import About from "./components/about";
-import Contact from "./components/contact";
 import Footer from "./components/footer";
+import HomePage from "./pages/HomePage";
+import MenuPage from "./pages/MenuPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
-  const [searchText, setSearchText] = useState("");
-
-  const filteredPizzas = pizzas.filter((pizza) =>
-    pizza.name.toLowerCase().includes(searchText.toLowerCase())
-  );
-
   return (
     <>
       <Navbar />
       <main>
-        <Hero />
-        <section className="menu" id="menu">
-          <div className="section-heading">
-            <p className="eyebrow">Il nostro menu</p>
-            <h2>Le nostre pizze</h2>
-            <p>Cerca la pizza che preferisci tra le nostre proposte.</p>
-          </div>
-          <label className="search" htmlFor="pizza-search">
-            Cerca una pizza
-            <input id="pizza-search" type="search" value={searchText}
-              onChange={(event) => setSearchText(event.target.value)} placeholder="Es. Margherita" />
-          </label>
-          <PizzaList pizzas={filteredPizzas} />
-        </section>
-        <About />
-        <Contact />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/chi-siamo" element={<AboutPage />} />
+          <Route path="/contatti" element={<ContactPage />} />
+        </Routes>
       </main>
       <Footer />
     </>
