@@ -1,4 +1,5 @@
 import "./App.css";
+import pizzas from "./data/pizzas";
 
 function App() {
   return (
@@ -29,23 +30,13 @@ function App() {
           <h2>Le nostre pizze</h2>
 
           <div className="pizza-container">
-            <div className="pizza-card">
-              <h3>Margherita</h3>
-              <p>Pomodoro, fiordilatte e basilico</p>
-              <span>€8</span>
-            </div>
-
-            <div className="pizza-card">
-              <h3>Diavola</h3>
-              <p>Pomodoro, fiordilatte e salame piccante</p>
-              <span>€10</span>
-            </div>
-
-            <div className="pizza-card">
-              <h3>Bufalina</h3>
-              <p>Pomodoro, mozzarella di bufala e basilico</p>
-              <span>€11</span>
-            </div>
+            {pizzas.map((pizza) => (
+              <div className="pizza-card" key={pizza.id}>
+                <h3>{pizza.name}</h3>
+                <p>{pizza.description}</p>
+                <span>€{pizza.price}</span>
+              </div>
+            ))}
           </div>
         </section>
 
