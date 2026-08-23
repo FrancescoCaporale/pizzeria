@@ -1,9 +1,18 @@
-import { useState } from "react";
-import pizzas from "../data/pizzas";
+import { useEffect, useState } from "react";
 import PizzaList from "../components/pizzalist";
 
 function MenuPage() {
   const [searchText, setSearchText] = useState("");
+  const [pizzas, setPizzas] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/api/pizzas")
+      .then((response) => response.json())
+      .then((data) => setPizzas(data))
+      .catch(() => setPizzas([]))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const filteredPizzas = pizzas.filter((pizza) =>
     pizza.name.toLowerCase().includes(searchText.toLowerCase())
@@ -26,7 +35,7 @@ function MenuPage() {
           placeholder="Es. Margherita"
         />
       </label>
-      <PizzaList pizzas={filteredPizzas} />
+      {isLoading ? <p className="empty-message">Caricamento menu...</p> : <PizzaList pizzas={filteredPizzas} />}
     </section>
   );
 }
