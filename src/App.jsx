@@ -1,67 +1,42 @@
+import { useState } from "react";
 import "./App.css";
 import pizzas from "./data/pizzas";
-import navbar from "./components/navbar";
-import hero from "./components/hero";
+import Navbar from "./components/navbar";
+import Hero from "./components/hero";
+import PizzaList from "./components/pizzalist";
+import About from "./components/about";
+import Contact from "./components/contact";
+import Footer from "./components/footer";
 
 function App() {
+  const [searchText, setSearchText] = useState("");
+
+  const filteredPizzas = pizzas.filter((pizza) =>
+    pizza.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <>
-      <navbar />
-      <hero />
-      <header>
-        <nav>
-          <h1>Lievito</h1>
-
-          <ul>
-            <li>Home</li>
-            <li>Menu</li>
-            <li>Chi siamo</li>
-            <li>Contatti</li>
-          </ul>
-        </nav>
-      </header>
-
+      <Navbar />
       <main>
-        <section className="hero">
-          <div>
-            <p>Pizza contemporanea</p>
-            <h2>Il gusto della semplicità.</h2>
-            <button>Scopri il menu</button>
+        <Hero />
+        <section className="menu" id="menu">
+          <div className="section-heading">
+            <p className="eyebrow">Il nostro menu</p>
+            <h2>Le nostre pizze</h2>
+            <p>Cerca la pizza che preferisci tra le nostre proposte.</p>
           </div>
+          <label className="search" htmlFor="pizza-search">
+            Cerca una pizza
+            <input id="pizza-search" type="search" value={searchText}
+              onChange={(event) => setSearchText(event.target.value)} placeholder="Es. Margherita" />
+          </label>
+          <PizzaList pizzas={filteredPizzas} />
         </section>
-
-        <section className="menu">
-          <h2>Le nostre pizze</h2>
-
-          <div className="pizza-container">
-            {pizzas.map((pizza) => (
-              <div className="pizza-card" key={pizza.id}>
-                <h3>{pizza.name}</h3>
-                <p>{pizza.description}</p>
-                <span>€{pizza.price}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="about">
-          <h2>Chi siamo</h2>
-          <p>
-            Lievito nasce dalla passione per la pizza e dalla voglia di
-            reinterpretare la tradizione con ingredienti semplici e di qualità.
-          </p>
-        </section>
-
-        <section className="contact">
-          <h2>Vieni a trovarci</h2>
-          <p>Via Roma 25, Parma</p>
-          <p>Martedì - Domenica: 18:30 - 23:30</p>
-        </section>
+        <About />
+        <Contact />
       </main>
-
-      <footer>
-        <p>© 2026 Lievito - Pizza Contemporanea</p>
-      </footer>
+      <Footer />
     </>
   );
 }
