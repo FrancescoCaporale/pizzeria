@@ -1,9 +1,13 @@
 import "./App.css";
 import pizzas from "./data/pizzas";
+import navbar from "./components/navbar";
+import hero from "./components/hero";
 
 function App() {
   return (
     <>
+      <navbar />
+      <hero />
       <header>
         <nav>
           <h1>Lievito</h1>
