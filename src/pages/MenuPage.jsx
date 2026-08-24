@@ -35,7 +35,8 @@ function MenuPage() {
           placeholder="Es. Margherita"
         />
       </label>
-      {isLoading ? <p className="empty-message">Caricamento menu...</p> : <PizzaList pizzas={filteredPizzas} />}
+      {isLoading ?
+        <p className="empty-message">Caricamento menu...</p> : <PizzaList pizzas={filteredPizzas} />}
     </section>
   );
 }
